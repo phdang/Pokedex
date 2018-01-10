@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class PokemonVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     @IBOutlet var collection : UICollectionView!
     
@@ -155,6 +155,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        //Go To Pokemon Detail VC
+        
+        performSegue(withIdentifier: "goToPokemonDetailVC", sender: self)
+        
+        
+        
     }
     
     //MARK:- Music Button Pressed Method
@@ -178,6 +184,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     //MARK:- Search Bar Delegate methods
     
+    //Triggered once search bar text changes
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchBar.text == nil || searchBar.text == "" {
@@ -194,18 +202,46 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             fileteredPokemons = pokemons.filter({ $0.name.range(of: lower) != nil})
             
-            
         }
         
         collection.reloadData()
         
     }
     
+    //Triggered once return key or enter key clicked
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         view.endEditing(true)
+        
+        // Scroll up top when button clicked
     }
     
+    //MARK:- Go To Pokemon Detail VC
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "goToPokemonDetailVC" {
+            
+            if let destination = segue.destination as? PokemonDetailVC {
+                
+                if let row = collection.indexPathsForSelectedItems?[0][1] {
+                    
+                    let poke : Pokemon!
+                    
+                    if inSearchMode {
+                        
+                        poke = fileteredPokemons[row]
+                        
+                    } else {
+                        
+                        poke = pokemons[row]
+                    }
+     
+                    destination.pokemon = poke
+                }
+            }
+        }
+    }
 }
 

@@ -13,8 +13,9 @@
 		3D0B93A9200553DE0009A96F /* csv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B93A8200553DE0009A96F /* csv.swift */; };
 		3D0B93AE20055AF60009A96F /* pokemon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D0B93AD20055AF60009A96F /* pokemon.ttf */; };
 		3D0B93B020055CFA0009A96F /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D0B93AF20055CFA0009A96F /* music.mp3 */; };
+		3D0B93B22005CA320009A96F /* PokemonDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B93B12005CA320009A96F /* PokemonDetailVC.swift */; };
 		3DEFD0F620053B1700B6A002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD0F520053B1700B6A002 /* AppDelegate.swift */; };
-		3DEFD0F820053B1700B6A002 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD0F720053B1700B6A002 /* ViewController.swift */; };
+		3DEFD0F820053B1700B6A002 /* PokemonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD0F720053B1700B6A002 /* PokemonVC.swift */; };
 		3DEFD0FB20053B1800B6A002 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DEFD0F920053B1800B6A002 /* Main.storyboard */; };
 		3DEFD0FD20053B1800B6A002 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DEFD0FC20053B1800B6A002 /* Assets.xcassets */; };
 		3DEFD10020053B1800B6A002 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DEFD0FE20053B1800B6A002 /* LaunchScreen.storyboard */; };
@@ -27,9 +28,10 @@
 		3D0B93A8200553DE0009A96F /* csv.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = csv.swift; sourceTree = "<group>"; };
 		3D0B93AD20055AF60009A96F /* pokemon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pokemon.ttf; sourceTree = "<group>"; };
 		3D0B93AF20055CFA0009A96F /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
+		3D0B93B12005CA320009A96F /* PokemonDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailVC.swift; sourceTree = "<group>"; };
 		3DEFD0F220053B1700B6A002 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DEFD0F520053B1700B6A002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3DEFD0F720053B1700B6A002 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3DEFD0F720053B1700B6A002 /* PokemonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonVC.swift; sourceTree = "<group>"; };
 		3DEFD0FA20053B1800B6A002 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DEFD0FC20053B1800B6A002 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DEFD0FF20053B1800B6A002 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -67,7 +69,8 @@
 		3D0B93AA2005562D0009A96F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3DEFD0F720053B1700B6A002 /* ViewController.swift */,
+				3DEFD0F720053B1700B6A002 /* PokemonVC.swift */,
+				3D0B93B12005CA320009A96F /* PokemonDetailVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -198,8 +201,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D0B93A720054AED0009A96F /* PokeCell.swift in Sources */,
-				3DEFD0F820053B1700B6A002 /* ViewController.swift in Sources */,
+				3DEFD0F820053B1700B6A002 /* PokemonVC.swift in Sources */,
 				3DEFD0F620053B1700B6A002 /* AppDelegate.swift in Sources */,
+				3D0B93B22005CA320009A96F /* PokemonDetailVC.swift in Sources */,
 				3D0B93A42005423D0009A96F /* Pokemon.swift in Sources */,
 				3D0B93A9200553DE0009A96F /* csv.swift in Sources */,
 			);
