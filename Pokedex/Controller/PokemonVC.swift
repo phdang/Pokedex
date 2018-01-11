@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import SVProgressHUD
 
 class PokemonVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
@@ -41,6 +42,14 @@ class PokemonVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         
         initAudio()
   
+    }
+    
+    //MARK:- WillAppear
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        SVProgressHUD.dismiss()
+        
     }
     
     //MARK:- Init Audio
