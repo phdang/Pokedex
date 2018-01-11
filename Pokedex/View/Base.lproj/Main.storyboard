@@ -130,7 +130,7 @@
             </objects>
             <point key="canvasLocation" x="476" y="125.4872563718141"/>
         </scene>
-        <!--Pokemon DetailVC-->
+        <!--Title-->
         <scene sceneID="8dO-pQ-ADe">
             <objects>
                 <viewController id="DAC-am-ccR" customClass="PokemonDetailVC" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
@@ -316,19 +316,18 @@
                                     <constraint firstAttribute="height" constant="120" id="ZYQ-1a-z3v"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHm-eR-h3d">
-                                <rect key="frame" x="110" y="107.5" width="200" height="80"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-S5-8Cg">
+                                <rect key="frame" x="98" y="107.5" width="212" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="rNM-lg-EkH"/>
+                                    <constraint firstAttribute="height" constant="80" id="r8B-nn-vL4"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="7wt-eN-ryD" firstAttribute="trailing" secondItem="dHm-eR-h3d" secondAttribute="trailing" constant="10" id="0il-Hn-jo5"/>
                             <constraint firstItem="7wt-eN-ryD" firstAttribute="bottom" secondItem="gHU-Lh-vtI" secondAttribute="bottom" constant="5" id="4rH-SO-1OE"/>
                             <constraint firstItem="6vD-Xj-wtp" firstAttribute="leading" secondItem="7wt-eN-ryD" secondAttribute="leading" constant="10" id="96N-OO-xdd"/>
                             <constraint firstItem="rmO-45-Z6P" firstAttribute="top" secondItem="ShC-gs-PuR" secondAttribute="bottom" constant="5" id="ACx-aa-5xZ"/>
@@ -336,10 +335,11 @@
                             <constraint firstItem="gHU-Lh-vtI" firstAttribute="top" secondItem="rmO-45-Z6P" secondAttribute="bottom" constant="5" id="FLa-Cg-1Gi"/>
                             <constraint firstItem="6vD-Xj-wtp" firstAttribute="top" secondItem="7wt-eN-ryD" secondAttribute="top" constant="8" id="IKF-Fj-7cK"/>
                             <constraint firstItem="rmO-45-Z6P" firstAttribute="leading" secondItem="7wt-eN-ryD" secondAttribute="leading" constant="10" id="J4T-JU-0lv"/>
-                            <constraint firstItem="dHm-eR-h3d" firstAttribute="top" secondItem="6vD-Xj-wtp" secondAttribute="bottom" constant="5" id="Kl8-L7-O8d"/>
-                            <constraint firstItem="dHm-eR-h3d" firstAttribute="leading" secondItem="Aha-k2-lQC" secondAttribute="trailing" constant="20" id="N2B-uw-h0k"/>
+                            <constraint firstItem="7wt-eN-ryD" firstAttribute="trailing" secondItem="HYt-S5-8Cg" secondAttribute="trailing" constant="10" id="Kmv-Ku-y3G"/>
+                            <constraint firstItem="HYt-S5-8Cg" firstAttribute="leading" secondItem="Aha-k2-lQC" secondAttribute="trailing" constant="8" id="OE0-ME-2sS"/>
                             <constraint firstItem="7wt-eN-ryD" firstAttribute="trailing" secondItem="rmO-45-Z6P" secondAttribute="trailing" constant="10" id="PVm-hP-Luh"/>
                             <constraint firstItem="gHU-Lh-vtI" firstAttribute="leading" secondItem="7wt-eN-ryD" secondAttribute="leading" constant="10" id="Qka-ka-qsi"/>
+                            <constraint firstItem="HYt-S5-8Cg" firstAttribute="top" secondItem="6vD-Xj-wtp" secondAttribute="bottom" constant="5" id="RtA-9l-wyp"/>
                             <constraint firstItem="7wt-eN-ryD" firstAttribute="trailing" secondItem="6vD-Xj-wtp" secondAttribute="trailing" constant="10" id="TPH-Su-RVQ"/>
                             <constraint firstItem="Aha-k2-lQC" firstAttribute="top" secondItem="6vD-Xj-wtp" secondAttribute="bottom" constant="5" id="VXn-jy-ZDe"/>
                             <constraint firstItem="ShC-gs-PuR" firstAttribute="leading" secondItem="7wt-eN-ryD" secondAttribute="leading" constant="10" id="XLF-Fs-Bdb"/>
@@ -349,23 +349,33 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7wt-eN-ryD"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="4Xc-6A-a5X">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Yz8-zR-f0a">
+                            <connections>
+                                <action selector="reDownloadInfo:" destination="DAC-am-ccR" id="QqD-dI-9Yl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="PokedexIdLbl" destination="C4e-rp-Rch" id="UNT-h2-fXa"/>
                         <outlet property="attackLbl" destination="b1c-CE-WIR" id="ZUO-4u-GSx"/>
                         <outlet property="currentStageImg" destination="gmg-4B-dXf" id="qit-DT-mbr"/>
                         <outlet property="defenseLbl" destination="FB7-Zt-FhJ" id="5qd-Mh-eQa"/>
-                        <outlet property="detailLbl" destination="dHm-eR-h3d" id="yHC-Db-FZY"/>
+                        <outlet property="detailTextView" destination="HYt-S5-8Cg" id="m2i-Az-Efr"/>
                         <outlet property="heightLbl" destination="CEn-r7-7fz" id="Jfh-AV-xjm"/>
                         <outlet property="mainImg" destination="Aha-k2-lQC" id="R7p-h8-E7s"/>
                         <outlet property="nextEvolutionLbl" destination="PhF-aE-dU9" id="NWT-bM-9k2"/>
                         <outlet property="nextStageImg" destination="p70-ve-2PS" id="Xp7-A5-KJW"/>
+                        <outlet property="reDownloadInfoButton" destination="Yz8-zR-f0a" id="nRL-bN-Lk9"/>
                         <outlet property="typeLbl" destination="MeM-AF-Jss" id="6JM-nY-hSe"/>
                         <outlet property="weightLbl" destination="gXC-Kh-t4p" id="goq-4c-yKF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1se-DH-KPX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1200" y="121.25"/>
+            <point key="canvasLocation" x="1329" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="th8-GP-S6q">

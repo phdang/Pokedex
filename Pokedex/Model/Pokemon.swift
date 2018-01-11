@@ -406,7 +406,7 @@ class Pokemon {
                                             
                                             if let text = languages["flavor_text"] as? String {
                                                 
-                                                self._detail += text
+                                                self._detail = "\(self.detail)\(text)"
                                                 
                                                 completed()
                                             }

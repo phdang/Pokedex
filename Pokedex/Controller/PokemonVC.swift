@@ -44,12 +44,19 @@ class PokemonVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
   
     }
     
-    //MARK:- WillAppear
+    //MARK:- View Will Appear
     
     override func viewWillAppear(_ animated: Bool) {
         
         SVProgressHUD.dismiss()
+    
+    }
+    
+    //MARK:- View Will Disappear
+    
+    override func viewWillDisappear(_ animated: Bool) {
         
+        view.endEditing(true)
     }
     
     //MARK:- Init Audio
