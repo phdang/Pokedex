@@ -95,6 +95,15 @@ class PokemonDetailVC: UIViewController {
         
                 nextEvolutionLbl.text = "No Next Evolution Stage"
                 
+                nextStageImg.image = UIImage(named: "")
+             
+                
+            } else if poke.nextEvolutionName == "" {
+                
+                nextEvolutionLbl.text = "Not Found Information For Next Evolution Stage"
+                
+                nextStageImg.image = UIImage(named: "0")
+                
             } else {
                 
                 //print(poke.nextEvolutionId)

@@ -232,7 +232,7 @@ class Pokemon {
         
         let descriptionURL = "\(BASE_URL)\(POKEMON_DESCRIPTION_URL)\(pokedexId)/"
         
-        //MARK:- Description
+        //MARK:- Description And Evolution
         
         Alamofire.request(descriptionURL).responseJSON { response in
             
@@ -246,13 +246,13 @@ class Pokemon {
                             var chainId = chainURL.replacingOccurrences(of: "https://pokeapi.co/api/v2/evolution-chain/", with: "")
                             chainId = chainId.replacingOccurrences(of: "/", with: "")
                             
-                            print(chainId)
+                            //print(chainId)
                             
                             //TODO:- Evolution
                             
                             let evolutionURL = "\(BASE_URL)\(POKEMON_EVOLUTION_URL)\(chainId)/"
                             
-                            print(evolutionURL)
+                            //print(evolutionURL)
                             
                             Alamofire.request(evolutionURL).responseJSON { response in
                                 
