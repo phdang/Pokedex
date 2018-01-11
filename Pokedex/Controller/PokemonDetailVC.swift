@@ -84,7 +84,14 @@ class PokemonDetailVC: UIViewController {
             
             typeLbl.text = poke.type
             
-            if poke.nextEvolutionLevel == "" || poke.nextEvolutionId == "" {
+            var details = poke.detail.replacingOccurrences(of: "\n", with: " ")
+            
+            details = details.replacingOccurrences(of: ".", with: ". ")
+            
+            detailLbl.text = details
+            
+            
+            if poke.nextEvolutionId == "\(poke.pokedexId)" {
         
                 nextEvolutionLbl.text = "No Next Evolution Stage"
                 
@@ -95,14 +102,15 @@ class PokemonDetailVC: UIViewController {
                 nextStageImg.image = UIImage(named: poke.nextEvolutionId)
              
                 nextEvolutionLbl.text = "Next Evolution: \(poke.nextEvolutionName.capitalized) Level \(poke.nextEvolutionLevel)"
-                
-                SVProgressHUD.dismiss()
+              
             }
             
+            SVProgressHUD.dismiss()
             
         }
         
     }
+    
     //MARK:- Reset before loading data
     func reset() {
         

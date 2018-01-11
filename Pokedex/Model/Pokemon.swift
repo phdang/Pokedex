@@ -25,7 +25,7 @@ class Pokemon {
     
     private var _weight: String = ""
     
-    private var _attact: String = ""
+    private var _attack: String = ""
     
     private var _nextEvolutionId : String = ""
     
@@ -67,8 +67,7 @@ class Pokemon {
     
     var attack : String {
         
-        return _attact
-    }
+        return _attack    }
     
     var type: String {
         
@@ -139,7 +138,7 @@ class Pokemon {
                                 
                                 //print("Get base_stat?")
                                 
-                                self._attact = "\(attack)"
+                                self._attack = "\(attack)"
                                 
                             }
                         }
@@ -192,138 +191,13 @@ class Pokemon {
                             
                             self._type = "Unknown"
                             
-                            completed()
+                            if self._attack != "" {
+                                
+                                completed()
+                            }
                
                         }
            
-                    }
-                    
-                    
-                    
-                    //TODO:- Evolution
-                    
-                    let evolutionURL = "\(BASE_URL)\(POKEMON_EVOLUTION_URL)\(self.pokedexId)/"
-                    
-                    Alamofire.request(evolutionURL).responseJSON { response in
-                        
-                        if response.result.isSuccess {
-                            
-                            if let dict = response.result.value as? Dictionary<String,Any> {
-                                //print("1")
-                                if let chain = dict["chain"] as? Dictionary<String,Any> {
-                                    //print("2")
-                                    if let evolve = chain["evolves_to"] as?  NSArray {
-                                        //print("3")
-                                        if evolve.count > 0 {
-                                            
-                                            if let details = evolve[0] as? Dictionary<String,Any> {
-                                                //print("4")
-                                                if let evolvesToArray = details["evolves_to"] as? NSArray {
-                                                    //print("5")
-                                                    if evolvesToArray.count > 0 {
-                                                        
-                                                        if let evolvesTo = evolvesToArray[0] as? Dictionary<String,Any> {
-                                                            //print("6")
-                                                            if let species = evolvesTo["species"] as? Dictionary<String,Any> {
-                                                                //print("7")
-                                                                //TODO:- Evolution Name
-
-                                                                if let name = species["name"] as? String {
-                                                                    //print("8")
-
-                                                                    self._nextEvolutionName = name
-
-                                                                }
-
-                                                                //TODO:- Evolution Id
-
-                                                                if let url = species["url"] as? String {
-                                                                    //print("9")
-
-                                                                    //print(url)
-
-                                                                    var nextEvolId = url.replacingOccurrences(of: "https://pokeapi.co/api/v2/pokemon-species/", with: "")
-
-                                                                    nextEvolId = nextEvolId.replacingOccurrences(of: "/", with: "")
-
-                                                                    self._nextEvolutionId = nextEvolId
-
-                                                                }
-                                                            }
-
-                                                        }
-                                                        
-                                                    } else {
-                                                        
-                                                        self._nextEvolutionName = ""
-                                                        
-                                                        self._nextEvolutionId = ""
-                                                        
-                                                        completed()
-                                                    }
-                                                    
-//
-    
-                                                    if let evolvesToArray = details["evolution_details"] as? NSArray {
-    
-                                                        if evolvesToArray.count > 0 {
-    
-                                                            if let detail = evolvesToArray[0] as? Dictionary<String,Any> {
-    
-                                                                //TODO:- Evolution Level
-    
-                                                                if let minLevel = detail["min_level"] as? Int {
-    
-                                                                    self._nextEvolutionLevel = "\(minLevel)"
-    
-                                                                    completed()
-    
-                                                                }
-    
-                                                            }
-    
-                                                        } else {
-    
-                                                            self._nextEvolutionLevel = ""
-                                                            
-                                                            completed()
-    
-                                                        }
-    
-                                                    }
-    
-                                                }
-    
-                                            }
-                                            
-                                        } else {
-                                            
-                                            self._nextEvolutionName = ""
-                                            
-                                            self._nextEvolutionId = ""
-                                            
-                                            completed()
-                                            
-                                        }
-                                        
-
-                                        
-                                    }
-                                    
-                                }
-                                
-                            }
-                            
-                            
-                        } else {
-                            
-                            print(response.result.error!)
-                            
-                            print("Connection issue")
-                            
-                            SVProgressHUD.dismiss()
-                            
-                        }
                     }
                     
 //                    print(self._weight)
@@ -336,7 +210,11 @@ class Pokemon {
 //
 //                    print(self._type)
                     
-                    SVProgressHUD.dismiss()
+                    if self._detail != "" {
+                        
+                        completed()
+                    }
+           
                 }
                 
             } else {
@@ -347,13 +225,215 @@ class Pokemon {
                 
                 SVProgressHUD.dismiss()
                 
+                SVProgressHUD.showError(withStatus: "Connection issue. Try again later !")
             }
-            
-            
+    
         }
         
-      
+        let descriptionURL = "\(BASE_URL)\(POKEMON_DESCRIPTION_URL)\(pokedexId)/"
         
+        //MARK:- Description
+        
+        Alamofire.request(descriptionURL).responseJSON { response in
+            
+            if response.result.isSuccess {
+                
+                if let dict = response.result.value as? Dictionary<String,Any> {
+                    
+                    if let evolution = dict["evolution_chain"] as? Dictionary<String,Any> {
+                        if let chainURL = evolution["url"] as? String {
+                            
+                            var chainId = chainURL.replacingOccurrences(of: "https://pokeapi.co/api/v2/evolution-chain/", with: "")
+                            chainId = chainId.replacingOccurrences(of: "/", with: "")
+                            
+                            print(chainId)
+                            
+                            //TODO:- Evolution
+                            
+                            let evolutionURL = "\(BASE_URL)\(POKEMON_EVOLUTION_URL)\(chainId)/"
+                            
+                            print(evolutionURL)
+                            
+                            Alamofire.request(evolutionURL).responseJSON { response in
+                                
+                                if response.result.isSuccess {
+                                    
+                                    if let dict = response.result.value as? Dictionary<String,Any> {
+                                        //print("1")
+                                        if let chain = dict["chain"] as? Dictionary<String,Any> {
+                                            //print("2")
+                                            if let evolve = chain["evolves_to"] as?  NSArray {
+                                                //print("3")
+                                                if evolve.count > 0 {
+                                                    
+                                                    if let details = evolve[0] as? Dictionary<String,Any> {
+                                                        //print("4")
+                                                        if let evolvesToArray = details["evolves_to"] as? NSArray {
+                                                            //print("5")
+                                                            if evolvesToArray.count > 0 {
+                                                                
+                                                                if let evolvesTo = evolvesToArray[0] as? Dictionary<String,Any> {
+                                                                    //print("6")
+                                                                    if let species = evolvesTo["species"] as? Dictionary<String,Any> {
+                                                                        //print("7")
+                                                                        //TODO:- Evolution Name
+                                                                        
+                                                                        if let name = species["name"] as? String {
+                                                                            //print("8")
+                                                                            
+                                                                            self._nextEvolutionName = name
+                                                                            
+                                                                        }
+                                                                        
+                                                                        //TODO:- Evolution Id
+                                                                        
+                                                                        if let url = species["url"] as? String {
+                                                                            //print("9")
+                                                                            
+                                                                            //print(url)
+                                                                            
+                                                                            var nextEvolId = url.replacingOccurrences(of: "https://pokeapi.co/api/v2/pokemon-species/", with: "")
+                                                                            
+                                                                            nextEvolId = nextEvolId.replacingOccurrences(of: "/", with: "")
+                                                                            
+                                                                            self._nextEvolutionId = nextEvolId
+                                                                            
+                                                                        }
+                                                                    }
+                                                                    
+                                                                }
+                                                                
+                                                            } else {
+                                                                
+                                                                self._nextEvolutionName = ""
+                                                                
+                                                                self._nextEvolutionId = ""
+                                                                
+                                                                if self._attack != "" {
+                                                                    
+                                                                    //completed()
+                                                                }
+                                                            }
+                                                            
+                                                            //
+                                                            
+                                                            if let evolvesToArray = details["evolution_details"] as? NSArray {
+                                                                
+                                                                if evolvesToArray.count > 0 {
+                                                                    
+                                                                    if let detail = evolvesToArray[0] as? Dictionary<String,Any> {
+                                                                        
+                                                                        //TODO:- Evolution Level
+                                                                        
+                                                                        if let minLevel = detail["min_level"] as? Int {
+                                                                            
+                                                                            self._nextEvolutionLevel = "\(minLevel)"
+                                                                            
+                                                                            if self._attack != "" {
+                                                                                
+                                                                                //completed()
+                                                                            }
+                                                                            
+                                                                        }
+                                                                        
+                                                                    }
+                                                                    
+                                                                } else {
+                                                                    
+                                                                    self._nextEvolutionLevel = ""
+                                                                    
+                                                                    if self._attack != "" {
+                                                                        
+                                                                        //completed()
+                                                                    }
+                                                                    
+                                                                    
+                                                                    
+                                                                }
+                                                                
+                                                            }
+                                                            
+                                                        }
+                                                        
+                                                    }
+                                                    
+                                                } else {
+                                                    
+                                                    self._nextEvolutionName = ""
+                                                    
+                                                    self._nextEvolutionId = ""
+                                                    
+                                                    //completed()
+                                                    
+                                                }
+                                                
+                                                
+                                                
+                                            }
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                } else {
+                                    
+                                    print(response.result.error!)
+                                    
+                                    print("Connection issue")
+                                    
+                                    SVProgressHUD.dismiss()
+                                    
+                                    SVProgressHUD.showError(withStatus: "Connection issue. Try again later !")
+                                    
+                                }
+                            }
+                        }
+                    }
+                    
+                    if let flavors = dict["flavor_text_entries"] as? NSArray {
+                        
+                        //print("1")
+                        
+                        for flavor in flavors  {
+                            //print("2")
+                            if let languages = flavor as? Dictionary<String, Any> {
+                                //print(languages)
+                                if let language = languages["language"] as? Dictionary<String,String> {
+                                    
+                                    let name = language["name"]
+                                        
+                                        if name == "en" {
+                                            
+                                            if let text = languages["flavor_text"] as? String {
+                                                
+                                                self._detail += text
+                                                
+                                                completed()
+                                            }
+                                        }
+                                }
+                          
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                
+            } else {
+                
+                print(response.result.error!)
+                
+                print("Connection issue")
+                
+                SVProgressHUD.dismiss()
+                
+                SVProgressHUD.showError(withStatus: "Connection issue. Try again later !")
+                
+            }
+        }
     }
     
     
