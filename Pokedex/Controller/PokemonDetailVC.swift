@@ -110,7 +110,7 @@ class PokemonDetailVC: UIViewController {
                 
                 nextStageImg.image = UIImage(named: poke.nextEvolutionId)
              
-                nextEvolutionLbl.text = "Next Evolution: \(poke.nextEvolutionName.capitalized) Level \(poke.nextEvolutionLevel)"
+                nextEvolutionLbl.text = "Ultimate Evolution Stage: \(poke.nextEvolutionName.capitalized) Level \(poke.nextEvolutionLevel)"
               
             }
             
