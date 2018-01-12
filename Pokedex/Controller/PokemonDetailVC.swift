@@ -42,17 +42,40 @@ class PokemonDetailVC: UIViewController {
     
     @IBOutlet weak var reDownloadInfoButton: UIBarButtonItem!
     
+    var noRefreshButtonClickedYet : Bool = true
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        reDownloadInfoButton.isEnabled = false
-        
         reset()
         
-        if let poke = pokemon {
+        refresh()
+    }
+    
+    //MARK:- Reset before loading data
+    func reset() {
         
+        reDownloadInfoButton.isEnabled = false
+        
+        detailTextView.text = ""
+        
+        typeLbl.text = ""
+        
+        defenseLbl.text = ""
+        
+        heightLbl.text = ""
+        
+        nextEvolutionLbl.text = ""
+        
+        weightLbl.text = ""
+        
+        attackLbl.text = ""
+        
+        PokedexIdLbl.text = ""
+        
+        if let poke = pokemon {
+            
             navigationItem.title = poke.name.capitalized
             
             mainImg.image = UIImage(named: "\(poke.pokedexId)")
@@ -60,20 +83,30 @@ class PokemonDetailVC: UIViewController {
             PokedexIdLbl.text = "\(poke.pokedexId)"
             
             currentStageImg.image = UIImage(named: "\(poke.pokedexId)")
+        }
+        
+    }
+    
+    //MARK:- Refresh Data again or button bar clicked
+    
+    func refresh() {
+        
+        if let poke = pokemon {
             
             SVProgressHUD.show(withStatus: "Loading Pokemon Infomation")
+            
+            reDownloadInfoButton.isEnabled = false
             
             poke.finishDownloadPokemonDetails(completed: {
                 
                 self.updateUI()
                 
-                //self.refresh()
-                
-                
             })
-        
         }
+        
     }
+    
+    //MARK:- Update Info once retriving data from networking
     
     func updateUI() {
         
@@ -98,15 +131,22 @@ class PokemonDetailVC: UIViewController {
             detailTextView.text = details
             
             if poke.nextEvolutionId == "\(poke.pokedexId)" {
-        
+                
                 nextEvolutionLbl.text = "No Next Evolution Stage"
                 
                 nextStageImg.image = UIImage(named: "")
-             
+                
                 
             } else if poke.nextEvolutionName == "" {
                 
-                nextEvolutionLbl.text = "Not Found Information Use Refresh Button To Try Again"
+                if noRefreshButtonClickedYet {
+                
+                    nextEvolutionLbl.text = "Not Found Information Use Refresh Button To Try Again"
+                    
+                } else {
+                    
+                    nextEvolutionLbl.text = "Not Found Information For Next Evolution Stage"
+                }
                 
                 nextStageImg.image = UIImage(named: "0")
                 
@@ -115,9 +155,9 @@ class PokemonDetailVC: UIViewController {
                 //print(poke.nextEvolutionId)
                 
                 nextStageImg.image = UIImage(named: poke.nextEvolutionId)
-             
+                
                 nextEvolutionLbl.text = "Ultimate Evolution Stage: \(poke.nextEvolutionName.capitalized) Level \(poke.nextEvolutionLevel)"
-              
+                
             }
             
             SVProgressHUD.dismiss()
@@ -128,46 +168,13 @@ class PokemonDetailVC: UIViewController {
             }
             
         }
-        
-    }
-    
-    //MARK:- Reset before loading data
-    func reset() {
-        
-        detailTextView.text = ""
-        typeLbl.text = ""
-        defenseLbl.text = ""
-        heightLbl.text = ""
-        nextEvolutionLbl.text = ""
-        weightLbl.text = ""
-        attackLbl.text = ""
-        PokedexIdLbl.text = ""
-        
-        
-    }
-    
-    //MARK:- Refresh Data again or button bar clicked
-    
-    func refresh() {
-        
-        if let poke = pokemon {
-            
-            SVProgressHUD.show(withStatus: "Loading Pokemon Infomation")
-            
-            reDownloadInfoButton.isEnabled = false
-            
-            poke.finishDownloadPokemonDetails(completed: {
-                
-                self.updateUI()
-                
-            })
-        }
-        
     }
     
     //MARK:- Button Bar Item Clicked
     
     @IBAction func reDownloadInfo(_ sender: UIBarButtonItem) {
+        
+        noRefreshButtonClickedYet = false
         
         refresh()
         
