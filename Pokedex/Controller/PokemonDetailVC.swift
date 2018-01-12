@@ -93,7 +93,14 @@ class PokemonDetailVC: UIViewController {
         
         if let poke = pokemon {
             
-            SVProgressHUD.show(withStatus: "Loading Pokemon Infomation")
+            if noRefreshButtonClickedYet {
+            
+                SVProgressHUD.show(withStatus: "Loading Pokemon Infomation")
+                
+            } else {
+                
+                SVProgressHUD.show(withStatus: "Refreshing Pokemon Infomation")
+            }
             
             reDownloadInfoButton.isEnabled = false
             
@@ -134,8 +141,7 @@ class PokemonDetailVC: UIViewController {
                 
                 nextEvolutionLbl.text = "No Next Evolution Stage"
                 
-                nextStageImg.image = UIImage(named: "")
-                
+                nextStageImg.isHidden = true
                 
             } else if poke.nextEvolutionName == "" {
                 
@@ -145,7 +151,7 @@ class PokemonDetailVC: UIViewController {
                     
                 } else {
                     
-                    nextEvolutionLbl.text = "Not Found Information For Next Evolution Stage"
+                    nextEvolutionLbl.text = "Unknown Information For Next Evolution Stage"
                 }
                 
                 nextStageImg.image = UIImage(named: "0")
